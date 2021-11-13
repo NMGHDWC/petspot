@@ -93,5 +93,7 @@ main {
   display: block;
   
   font-size: 18px;
-  ]
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
