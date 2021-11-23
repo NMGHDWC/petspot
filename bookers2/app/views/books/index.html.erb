@@ -1,47 +1,83 @@
-<main>
 
-  <% if@book.errors.any? %>
-    <%=@book.errors.count %>件のerrorが発生しました
-    <% @book.errors.full_messages.each do |message| %>
-      <%=message %>
-    <% end %>
+<div class="container px-5 px-sm-0">
+
+    <div id="error_explanation">
+        <% if @book.errors.any? %>
+          <h3><%= @book.errors.count %> error prohibited this obj from being saved:
+          <ul>
+            <li>
+            <% @book.errors.full_messages.each do |message| %>
+              <%= message %>
+            <% end %>
+            </li>
+          </ul>
+        <% end %>
+      </div>
+
+  <div class="row">
+    <div class="col-md-3">
+
+
+
+  <h2>User info</h2>
+
+  <table class="table table-hover table-inverse">
+    <tr><%= attachment_image_tag current_user, :profile_image, :fill, 63, 63, fallback: "no_image.jpg", size:'63x63' %></tr>
+    <tr>
+	   <th>name</th>
+	   <th><%= current_user.name %></th>
+    </tr>
+    <tr>
+     <th>introduction</th>
+     <th><%= current_user.introduction %></th>
+    </tr>
+  </table>
+
+  <div class="row">
+    <%=link_to "", edit_user_path(current_user), class: "btn btn-outline-secondary btn-block fas fa-user-cog edit_user" %></a>
+  </div>
+
+
+  <h2 class="mt-3">New book</h2>
+  <%= form_with model: @book, url:books_path, local:true do |f| %>
+  <h4>Title</h4>
+  <%= f.text_field :title %>
+  <h4>opionion</h4>
+  <%= f.text_area :body %>
+  <%= f.submit 'Create Book', class: "btn btn-success" %>
   <% end %>
 
-  <div class="container px-5 px-sm-0">
-    <div class="row">
-      <%= render 'books/list', book: @book ,user: current_user%>
-
-      <div class="col-md-8 offset-md-1">
-        <h2>Books</h2>
-        <table class="table">
-          <thead>
-            <tr>
-              <th></th>
-              <th>Title</th>
-              <th>Opinion</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @books.each do |book| %>
-            <tr>
-              <td>
-                <%=link_to user_path(book.user) do %>
-                  <%= attachment_image_tag @user,:profile_image, :fill, 100, 100, fallback: "no_image.jpg" %>
-                <% end %>
-              </td>
-              <td>
-
-
-                <%= link_to book.title, book_path(book.id) %>
-              </td>
-              <td><%= book.body %></td>
-            </tr>
-            <% end %>
-
-          </tbody>
-        </table>
-      </div>
     </div>
+
+
+
+  <div class="col-md-8 offset-md-1">
+  <h2>Books</h2>
+　 <table class="table table-hover table-inverse">
+　 <thead>
+    <tr>
+      <th></th>
+      <th>Title</th>
+      <th>Opinion</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+　 <% @books.each do |book|%>
+　 <tr>
+　  <td><span>
+　  <%=link_to user_path(book.user_id) do %>
+　  <%= attachment_image_tag book.user, :profile_image, :fill, 40, 40, fallback: "no_image.jpg", size:'40x40' %>
+　  <% end %>
+　  </span></td>
+  　<td><span><%=link_to book.title,book_path(book)%></span></td>
+ 　  <td><span><%=book.body%></span></td>
+　 </tr>
+　<%end%>
+　</tbody>
+
+　</table>
   </div>
-</main>
+ </div>
+</div>
