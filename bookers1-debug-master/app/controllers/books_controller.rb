@@ -1,4 +1,4 @@
-class BooksController < ApplicationControlle
+class BooksController < ApplicationController
   def top
   end
 
