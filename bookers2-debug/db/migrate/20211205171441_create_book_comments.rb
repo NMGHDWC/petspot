@@ -4,6 +4,7 @@ class CreateBookComments < ActiveRecord::Migration[5.2]
       t.integer :user_id
       t.integer :book_id
       t.text :comment
+      
       t.timestamps
     end
   end
